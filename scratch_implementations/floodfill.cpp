@@ -2,10 +2,11 @@
 #include "opencv2/imgcodecs.hpp"
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <stack>
 
 using namespace std;
 
-void floodfill(cv::Mat& M, cv::Point, int label);
+void floodfill(cv::Mat& M, cv::Point p, int label);
 
 cv::Mat M;
 
@@ -30,5 +31,14 @@ int main(int argc, char** argv) {
     if(c == 27) break;
   }
 
+}
+
+void get_neighbors();
+void floodfill(cv::Mat&M, cv::Point p, cv::Vec3b label) {
+  stack<cv::Point> stk; 
+  stk.push(p);
+  while(stk.size() > 0) {
+    p.
+  }
 }
 
