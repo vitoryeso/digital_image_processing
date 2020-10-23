@@ -21,6 +21,32 @@ int main(int argc, char** argv) {
     
     cout << "WIDTH: " << width << ", HEIGHT: " << height << endl;
 
+    cv::imshow("imagem com obj nas bordas", img);
+
+    /* primeiramente removendo os objetos nas bordas */
+    /* varrendo a primeira e ultima coluna */
+    for(unsigned i=0; i<height; i++) {
+      if(img.at<uchar>(i, 0) == 255) 
+        cv::floodFill(img, cv::Point(i, 0), 0);
+      if(img.at<uchar>(i, width - 1) == 255) 
+        cv::floodFill(img, cv::Point(i, width - 1), 0);
+    }
+
+    /* varrendo a primeira e ultima linha */
+    for(unsigned j=0; j<width; j++) {
+      if(img.at<uchar>(0, j) == 255){
+        cout << "row: 0, col: " << j << endl;
+        cv::waitKey(0);
+        cv::floodFill(img, cv::Point(0, j), 0, 0, cv::Scalar(), cv::Scalar(), cv::FLOODFILL_MASK_ONLY);
+      }
+      if(img.at<uchar>(height - 1, j) == 255) {
+        cv::floodFill(img, cv::Point(height - 1, j), 0);
+      }
+    }
+
+    cv::imshow("imagem sem obj nas bordas", img);
+
+    cv::waitKey(0);
     p.x = 0;
     p.y = 0;
     /* contagem de objetos. fazendo o preenchimento com o numero do objeto
