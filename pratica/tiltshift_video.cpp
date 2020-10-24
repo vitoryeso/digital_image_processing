@@ -21,6 +21,9 @@ int l2_slider_max = 450;
 //int blur_slider = 3;
 //int blur_slider_max = 13;
 
+cv::VideoCapture cap("http://192.168.0.13:8080/video");
+char c;
+
 cv::Mat image1, blended; 
 cv::Mat image_pond1, image_pond2;
 cv::Mat image_32f, image_blured;
@@ -67,8 +70,6 @@ void build_alfa_img() {
       alfa_img2.at<float>(i, j) = 1 - alfa_function(i);
     }
   }
-  cv::imshow("alfa 1", alfa_img);
-  cv::imshow("alfa 2", alfa_img2);
 }
 
 void on_trackbar_blend(int, void*){
@@ -87,32 +88,35 @@ void on_trackbar_blend(int, void*){
 }
 
 int main(int argvc, char** argv){
-  image1 = cv::imread(argv[1]);
-  WIDTH = image1.cols;
-  HEIGHT = image1.rows;
-  
-  image1.convertTo(image_32f, CV_32F);
-  cv::filter2D(image_32f, image_blured, image_32f.depth(), mask);
+  while(1) {
+    cap >> image1; 
+    WIDTH = image1.cols;
+    HEIGHT = image1.rows;
+    
+    image1.convertTo(image_32f, CV_32F);
+    cv::filter2D(image_32f, image_blured, image_32f.depth(), mask);
 
-  cv::namedWindow("addweighted", 1);
+    cv::namedWindow("addweighted", 1);
 
-  std::sprintf( TrackbarName, "d x %d", d_slider_max );
-  cv::createTrackbar( TrackbarName, "addweighted",
-                                      &d_slider,
-                                      d_slider_max,
-                                      on_trackbar_blend );
-  std::sprintf( TrackbarName, "l1 x %d", l1_slider_max );
-  cv::createTrackbar( TrackbarName, "addweighted",
-                                      &l1_slider,
-                                      l1_slider_max,
-                                      on_trackbar_blend );
-  std::sprintf( TrackbarName, "l2 x %d", l2_slider_max );
-  cv::createTrackbar( TrackbarName, "addweighted",
-                                      &l2_slider,
-                                      l2_slider_max,
-                                      on_trackbar_blend );
-  on_trackbar_blend(d_slider, 0 );
+    std::sprintf( TrackbarName, "d x %d", d_slider_max );
+    cv::createTrackbar( TrackbarName, "addweighted",
+                                        &d_slider,
+                                        d_slider_max,
+                                        on_trackbar_blend );
+    std::sprintf( TrackbarName, "l1 x %d", l1_slider_max );
+    cv::createTrackbar( TrackbarName, "addweighted",
+                                        &l1_slider,
+                                        l1_slider_max,
+                                        on_trackbar_blend );
+    std::sprintf( TrackbarName, "l2 x %d", l2_slider_max );
+    cv::createTrackbar( TrackbarName, "addweighted",
+                                        &l2_slider,
+                                        l2_slider_max,
+                                        on_trackbar_blend );
+    on_trackbar_blend(d_slider, 0 );
 
-  cv::waitKey(0);
+    c = cv::waitKey(30);
+    if(c == 27) break;
+  }
   return 0;
 }
