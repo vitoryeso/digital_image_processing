@@ -54,8 +54,8 @@ int main(int argc, char** argv) {
     for (int j=0; j<img_canny.cols; j++) {
       if (img_canny.at<uchar>(i, j) == 255) {
         count2++;
-        if (count%2 == 0) {
-          cv::circle(img_pontilhada, vizinho_branco(img_pontilhada, cv::Point(j, i)), 3, 
+        if (count%3 == 0) {
+          cv::circle(img_pontilhada, /*vizinho_branco(img_pontilhada,*/ cv::Point(j, i), 3, 
               maior_ocorrencia(img_pontilhada, cv::Point(j, i)),
               cv::FILLED, 8, 0);
           count = 1;
@@ -74,6 +74,7 @@ int main(int argc, char** argv) {
   cv::imshow("imagem pontilhada depois", img_pontilhada);
   cv::imshow("bordas de canny", img_canny);
 
+  cv::imwrite("cannypoints_output1.png", img_pontilhada);
 
   cv::waitKey(0);
 
@@ -88,7 +89,7 @@ unsigned maior_ocorrencia(cv::Mat& img, cv::Point p) {
   upair w[8] = {upair(1,1), upair(1, 0), upair(0, 1), upair(-1, -1), 
     upair(-1, 0), upair(0, -1), upair(1, -1), upair(-1, 1)};
 
-  unsigned sum = 0, val, count = 0;
+  unsigned val;
   for (int i=0; i<8; i++) {
     P.y = p.y + w[i].first;
     P.x = p.x + w[i].second;
@@ -98,7 +99,7 @@ unsigned maior_ocorrencia(cv::Mat& img, cv::Point p) {
     val = img.at<uchar>(P.y, P.x);
     if (val < 235) V.push_back(val);
   }
-  for (int i=0; i<V.size(); i++) {
+  for (int i=0; i<(int)V.size(); i++) {
     S.insert(V[i]);
   }
   unsigned max_occurrences(0), occurrences;

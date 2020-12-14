@@ -11,9 +11,9 @@
 using namespace std;
 using namespace cv;
 
-#define STEP 8
+#define STEP 5
 #define JITTER 3
-#define RAIO 5
+#define RAIO 3
 
 int main(int argc, char** argv){
   vector<int> yrange;
