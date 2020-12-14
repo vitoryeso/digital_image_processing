@@ -16,8 +16,7 @@ Apesar do algoritmo de Canny ter diversas utilidades e aplicações, vamos explo
 
 Para simular esse efeito em imagens digitais, podemos simplesmente varrer toda a imagem, e ir pintando uma imagem (inicialmente em branco) com circulos preenchidos com valores respectivos a imagem original, como pode ser visto nesse exemplo:
 
-![luffygray](imgs/luffy2_gray.jpg "luffy original")
-![luffypont](imgs/pontos.jpg "luffy pontilhado")
+![luffygray](imgs/luffy2_gray.jpg "luffy original") ![luffypont](imgs/pontos.jpg "luffy pontilhado")
 
 Podemos ver quer essa implementação não foi tão bem fiel a técnica do pontilhismo, tendo em vista que alguns pontos da imagens possuem lacunas, o que não deixa a imagem tão atraente. Aqui que entra o algoritmo de Canny.
 
