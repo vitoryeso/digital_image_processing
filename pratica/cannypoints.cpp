@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     for (int j=0; j<img_canny.cols; j++) {
       if (img_canny.at<uchar>(i, j) == 255) {
         count2++;
-        if (count%3 == 0) {
+        if (count%3 == 0 || 1) {
           cv::circle(img_pontilhada, /*vizinho_branco(img_pontilhada,*/ cv::Point(j, i), 3, 
               maior_ocorrencia(img_pontilhada, cv::Point(j, i)),
               cv::FILLED, 8, 0);

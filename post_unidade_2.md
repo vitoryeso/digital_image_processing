@@ -17,8 +17,8 @@ Apesar do algoritmo de Canny ter diversas utilidades e aplicações, vamos explo
 Para simular esse efeito em imagens digitais, podemos simplesmente varrer toda a imagem, e ir pintando uma imagem (inicialmente em branco) com circulos preenchidos com valores respectivos a imagem original, como pode ser visto nesse exemplo:
 
 <p float="left">
-  <img src="imgs/luffy2_gray.jpg" width="100" />
-  <img src="imgs/pontos.jpg" width="100" /> 
+  <img src="imgs/luffy2_gray.jpg" width="400" />
+  <img src="imgs/pontos.jpg" width="400" /> 
 </p>
 
 Podemos ver quer essa implementação não foi tão bem fiel a técnica do pontilhismo, tendo em vista que alguns pontos da imagens possuem lacunas, o que não deixa a imagem tão atraente. Aqui que entra o algoritmo de Canny.
@@ -26,3 +26,28 @@ Podemos ver quer essa implementação não foi tão bem fiel a técnica do ponti
 O algoritmo de Canny pode ser utilizado para encontrar as bordas dos pontos desenhados, e com isso, criar uma melhoria na imagem, pintando também próximo as bordas dos pontos.
 
 ### Canny + Pontilhismo
+
+Para fazer a melhoria na imagem inicialmente pontilhada, faremos os seguintes passos:
+- Aquisição da imagem de bordas de Canny escolhendo um limiar apropriado
+- Varrer a imagem de bordas procurando as bordas
+- Para cada borda encontrar o vizinho mais frequente (não-branco)
+- Desenhar um ponto na posição da borda, com o valor do vizinho mais frequente encontrado
+
+Com esse _pipeline_ em mente, temos alguns parâmetros a serem ajustados.
+
+O limiar escolhido para as bordas de canny a princípio é um limiar baixo, pois as bordas da imagem pontilhada são de fácil detecção e temos muitas ocorrências de bordas.
+
+Ao varrer a figura pintando todos os pontos de borda, a imagem resultante provavelmente ficará poluída, como nesse exemplo:
+
+<img src="imgs/luffy_borradao.png" width="400">
+
+O que é resultado tanto da pintura excessiva (pintando todas os pontos de bordas) quanto do raio do ponto que foi pintado. Podemos escolher uma frequência para que os pontos das bordas sejam considerados (<img src="https://render.githubusercontent.com/render/math?math=freq_b">), digamos 1 a cada 20, e também escolher um raio do ponto a ser pintado (<img src="https://render.githubusercontent.com/render/math?math=R_after">) pequeno, digamos 3 _pixels_.
+
+Claramente esses parâmetros dependerão da imagem utilizada, e poderão ser ajustados pelo usuário, afim de encontrar uma imagem pontilhada que lhe agrade.
+
+Muitas vezes, será proveitoso o uso desse algorítmo em cascata, modificando os parâmetros a cada nova etapa. Isso é feito para que não sobrem espaços em branco, e que a imagem não fique poluída.
+
+No caso da imagem do [Luffy](https://en.wikipedia.org/wiki/Monkey_D._Luffy), a abordagem que retornou uma imagem mais bem feita, foi a utilização de <img src="https://render.githubusercontent.com/render/math?math=freq_b = 5"> e <img src="https://render.githubusercontent.com/render/math?math=R = 3"> uma vez, e depois <img src="https://render.githubusercontent.com/render/math?math=freq_b = 3"> e <img src="https://render.githubusercontent.com/render/math?math=R = 3"> mais 3 vezes. Resultando nessa imagem:
+
+<img src="imgs/luffy_pos_canny_pontos.png" width="400">
+
