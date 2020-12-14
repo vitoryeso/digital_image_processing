@@ -8,17 +8,14 @@ using namespace std;
 int main( int argc, char** argv ){
   int nClusters = 8;
   Mat rotulos;
-  int nRodadas = 5;
+  int nRodadas = 1;
   Mat centros;
 
-  if (argc == 4) {
-    nRodadas = atoi(argv[3]);
-  }
-  else if (argc != 3) {
+  if (argc != 3) {
     exit(0); 
   }
   
-  Mat img = imread(argv[1], cv::IMREAD_GRAYSCALE);
+  Mat img = imread(argv[1], cv::IMREAD_COLOR);
 
   Mat samples(img.rows * img.cols, 3, CV_32F);
 
@@ -33,11 +30,10 @@ int main( int argc, char** argv ){
   kmeans(samples,
 		 nClusters,
 		 rotulos,
-		 TermCriteria(TermCriteria::COUNT|TermCriteria::EPS, 10000, 0.0001),
+		 TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 10000, 0.0001),
 		 nRodadas,
 		 KMEANS_RANDOM_CENTERS,
 		 centros);
-
 
   Mat rotulada( img.size(), img.type() );
   for( int y = 0; y < img.rows; y++ ){
@@ -49,9 +45,7 @@ int main( int argc, char** argv ){
     }
   }
 
-  //imshow( "clustered image", rotulada );
-  cout << "argv[2] na prox linha" << endl;
-  cout << argv[2] << endl;
+  imshow( "clustered image", rotulada );
   imwrite(argv[2], rotulada);
   waitKey( 0 );
 }
