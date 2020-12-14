@@ -41,7 +41,7 @@ Ao varrer a figura pintando todos os pontos de borda, a imagem resultante provav
 
 <img src="imgs/luffy_borradao.png" width="400">
 
-O que é resultado tanto da pintura excessiva (pintando todas os pontos de bordas) quanto do raio do ponto que foi pintado. Podemos escolher uma frequência para que os pontos das bordas sejam considerados (<img src="https://render.githubusercontent.com/render/math?math=freq_b">), digamos 1 a cada 20, e também escolher um raio do ponto a ser pintado (<img src="https://render.githubusercontent.com/render/math?math=R_after">) pequeno, digamos 3 _pixels_.
+O que é resultado tanto da pintura excessiva (pintando todas os pontos de bordas) quanto do raio do ponto que foi pintado. Podemos escolher uma frequência para que os pontos das bordas sejam considerados (<img src="https://render.githubusercontent.com/render/math?math=freq_b">), digamos 1 a cada 20, e também escolher um raio do ponto a ser pintado (<img src="https://render.githubusercontent.com/render/math?math=R">) pequeno, digamos 3 _pixels_.
 
 Claramente esses parâmetros dependerão da imagem utilizada, e poderão ser ajustados pelo usuário, afim de encontrar uma imagem pontilhada que lhe agrade.
 
