@@ -11,4 +11,3 @@
 - **Makefile:** arquivo de compilação e montagem dos códigos em C++
 - **notebooks/:** pasta contendo relatórios dos exercícios propostos na disciplina, juntamente com implementações em Python, com a interface do [Jupyter Notebook](jupyter.org)
 - **post_unidade_2.md:** Relatório no formato BlogPost para os exercícios da unidade 2
-- **post_unidade_3.md:** Relatório no formato BlogPost para os exercícios da unidade 3
