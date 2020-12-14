@@ -1,6 +1,6 @@
 ## Detecção de Bordas com o Algoritmo de Canny
 
-![Diagrama Canny]("./imgs/blockdiag_canny.png")
+![Diagrama Canny](imgs/blockdiag_canny.png "Diagrama de Blocos Canny")
 Primeiramente é feito um borramento na imagem com um **filtro Gaussiano**, para reduzir _pixels_ ruidosos, que podem comprometer o funcionamento do detector de bordas, assim como compromete o funcionamento de diversos algoritmos de processamento de imagens. Após isso, é calculado o gradiente da imagem, resultando em vetores para cada _pixel_ da imagem. Esses vetores terão os seus ângulos classificados em intervalos de angulação menores.
 
 Depois dessa primeira etapa, podemos utilizar as classificações dos ângulos para verificar se _pixels_ vizinhos estão apontando para a mesma direção e posteriormente aplicamos um sub-algoritmo chamado de Supressão de não-máximos, que anota em uma outra imagem (chamada de imagem de não-máximos) algum valor para os _pixels_ que são máximos locais (comparados com os seus vizinhos) e um valor nulo para os que não forem máximos locais.
